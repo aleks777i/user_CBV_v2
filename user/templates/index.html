@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if not counter %}
+<h2> Your DB is empty, please add some user to DB.</h2>
+{% else %}
+<h2>Current DB has {{ counter }} user{{ counter|pluralize }}.</h2>
+{% endif %}
+<ul>
+    {% for user in users %}
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+            <li>
+
+                <h5 class="card-title">ID: {{ user.id }} Username: <strong>{{ user.username }}</strong> </h5>
+                <p class="card-text">E-mail: {{ user.email }}</p>
+                <a class="btn btn-sm btn-success" href="{% url 'user-detail' user.id %}" class="card-link">View</a>
+                <a class="btn btn-sm btn-primary" href="{% url 'user-update' user.id %}" class="card-link">Edit</a>
+                <a class="btn btn-sm btn-danger" href="{% url 'user-delete' user.id %}" class="card-link">Delete</a>
+
+
+            </li>
+
+        </div>
+    </div>
+    <br>
+    {% endfor %}
+</ul>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

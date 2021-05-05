@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card" style="width: 30rem;">
+  <div class="card-body">
+    <h5 class="card-title">Username: <strong>{{ user.username }}</strong></h5>
+    <p class="card-text">E-mail: {{ user.email }}</p>
+    <form action="{% url 'home' %}" method="">
+        {% csrf_token %}
+        <input class="btn btn-sm btn-primary" type="submit" value="Back">
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+
